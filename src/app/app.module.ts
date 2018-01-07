@@ -3,16 +3,23 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { BrewConfigComponent } from './brew-config/brew-config.component';
+import { BrewConfigService } from './brew-config/brew-config.service';
+import { WebsocketService } from './websocket/websocket.service';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BrewConfigComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    BrewConfigService,
+    WebsocketService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
