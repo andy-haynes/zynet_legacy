@@ -1,27 +1,26 @@
 # Zynet
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.1.
+Zynet is an application to monitor and regulate an electric kettle
+according to a specified configuration. Currently it is written
+written as a Node REST API with a controller written in Python,
+this is the rewrite using WebSocket and the RxJS library. It's
+still in the early stages but the descriptions below outline the
+functionality this rewrite will ultimately replace.
 
-## Development server
+## /server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The server hosts the WebSocket connection and broadcasts messages
+between the controller and client. Updates are pushed from the
+controller to the client and the client pushes configuration changes
+to the controller.
 
-## Code scaffolding
+## /controller
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The controller is responsible for maintaining mash temperature
+by toggling relays according to PID logic. It sends updates to
+the server indicating the current mash temperature and relay state.
 
-## Build
+## /src
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The Angular 4 web client sets the configuration for the controller
+to use and then listens for updates on that configuration.
