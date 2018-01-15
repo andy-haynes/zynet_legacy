@@ -12,12 +12,26 @@ const socket$ = new WebSocketSubject({
   WebSocketCtor: w3cwebsocket
 });
 
-socket$
-  .subscribe(
-    (msg: any) => console.log(msg),
-    (err: Error) => console.error(err),
-    () => console.log('complete')
-  );
+(function subscribeWebsocket(): void {
+  socket$
+    .subscribe(
+      (msg: ZynetMessage) => {
+        console.log(msg);
+      },
+      (err: Error) => {
+        // attempt reconnect if connection broken
+        if (socket$.socket === null) {
+          setTimeout(() => {
+            console.log('attempting reconnect...');
+            subscribeWebsocket();
+          }, 500);
+        } else {
+          console.error(err);
+        }
+      },
+      () => console.log('complete')
+    );
+})();
 
 // mock temperature updates
 let temp = 0;
