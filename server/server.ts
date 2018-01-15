@@ -1,7 +1,8 @@
 import * as http from 'http';
 import * as WebSocket from 'ws';
 
-import { ZynetMessage, ZynetMessageType } from '../src/models/ZynetMessage';
+import ZynetMessage from '../src/models/ZynetMessage';
+import { ZynetMessageType } from '../src/constants';
 
 const clientWebsocketPort = 8081;
 const server = http.createServer();

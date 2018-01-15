@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import BrewConfig from '../../models/BrewConfig';
 import BrewUpdate from '../../models/BrewUpdate';
 import { WebsocketService } from '../websocket/websocket.service';
-import { ZynetMessage, ZynetMessageType } from '../../models/ZynetMessage';
+import ZynetMessage from '../../models/ZynetMessage';
 
 @Injectable()
 export class BrewConfigService {

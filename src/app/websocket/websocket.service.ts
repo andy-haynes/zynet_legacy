@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 import { w3cwebsocket } from 'websocket';
-import { ZynetMessage } from '../../models/ZynetMessage';
+import ZynetMessage from '../../models/ZynetMessage';
 
 @Injectable()
 export class WebsocketService {

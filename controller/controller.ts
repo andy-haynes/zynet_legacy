@@ -4,7 +4,8 @@ import { w3cwebsocket } from 'websocket';
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 
 import BrewUpdate from '../src/models/BrewUpdate';
-import { ZynetMessage, ZynetMessageType } from '../src/models/ZynetMessage';
+import ZynetMessage from '../src/models/ZynetMessage';
+import { ZynetMessageType } from '../src/constants';
 
 const socket$ = new WebSocketSubject({
   url: 'ws://localhost:8081',

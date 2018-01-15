@@ -12,3 +12,8 @@ export enum BrewState {
   Completed,  // final step's timer is up, holding temperature
   Stopped     // manually stopped, temperature off
 }
+
+export enum ZynetMessageType {
+  LogUpdate = 1,
+  UpdateConfig
+}

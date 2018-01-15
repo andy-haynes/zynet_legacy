@@ -1,9 +1,6 @@
-export enum ZynetMessageType {
-  LogUpdate = 1,
-  UpdateConfig
-}
+import { ZynetMessageType } from '../constants';
 
-export class ZynetMessage {
+export default class ZynetMessage {
 
   constructor(
     public type: ZynetMessageType,
