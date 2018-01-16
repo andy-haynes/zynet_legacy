@@ -6,6 +6,7 @@ export default class BrewUpdate {
     public minutes: number,
     public currentTemp: number,
     public targetTemp: number,
+    public relayOn: boolean,
     public currentStep: number
   ) { }
 
