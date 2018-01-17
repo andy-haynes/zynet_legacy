@@ -16,6 +16,9 @@ const connection = new ZynetConnection();
 connection.connect();
 
 mockThermometer.sensor$.subscribe((temperature: number) => {
+  pidController.updateTemperature(temperature);
+  mockRelay.switch(pidController.state);
+
   connection.send(new ZynetMessage(
     ZynetMessageType.LogUpdate,
     Object.assign(mockUpdate, {
@@ -23,6 +26,4 @@ mockThermometer.sensor$.subscribe((temperature: number) => {
       relayOn: mockRelay.on
     })
   ));
-
-  mockRelay.switch(temperature < mockUpdate.targetTemp);
 });
