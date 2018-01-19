@@ -36,7 +36,12 @@ export default class ZynetConnection implements Connection {
       );
   }
 
-  send(message: ZynetMessage) {
+  send(message: ZynetMessage): void {
     this.socket$.next(JSON.stringify(message));
+  }
+
+  subscribe(next: Function): Subscription {
+    return this.socket$
+      .subscribe(next, console.error, () => {});
   }
 }
