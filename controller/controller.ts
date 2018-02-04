@@ -1,13 +1,13 @@
-import BrewConfig from '../src/models/BrewConfig';
-import BrewStep from '../src/models/BrewStep';
-import BrewUpdate from '../src/models/BrewUpdate';
+import BrewConfig from '../core/models/BrewConfig';
+import BrewStep from '../core/models/BrewStep';
+import BrewUpdate from '../core/models/BrewUpdate';
 import controllerConfig from './config';
 import { MockRelay } from './mocks';
 import { PIDController } from './pid';
 import { PiThermometer } from './thermometer';
-import { TemperatureUnits, ZynetMessageType} from '../src/constants';
+import { TemperatureUnits, ZynetMessageType} from '../core/constants';
 import ZynetConnection from './connection';
-import ZynetMessage from '../src/models/ZynetMessage';
+import ZynetMessage from '../core/models/ZynetMessage';
 
 const relay = new MockRelay();
 const thermometer = new PiThermometer();

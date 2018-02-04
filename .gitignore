@@ -1,4 +1,7 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# module dependencies
+/angular-client/node_modules
+/controller/node_modules
+/server/node_modules
 
 # compiled output
 /dist

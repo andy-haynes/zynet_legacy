@@ -1,8 +1,8 @@
 import * as http from 'http';
 import * as WebSocket from 'ws';
 
-import ZynetMessage from '../src/models/ZynetMessage';
-import { ZynetMessageType } from '../src/constants';
+import ZynetMessage from '../core/models/ZynetMessage';
+import { ZynetMessageType } from '../core/constants';
 
 const clientWebsocketPort = 8081;
 const server = http.createServer();
@@ -33,3 +33,5 @@ websocketServer.on('connection', (websocket: WebSocket) => {
 server.listen(clientWebsocketPort, () => {
   console.log(`client websocket listening on port ${clientWebsocketPort}`);
 });
+
+export default server;

@@ -1,9 +1,9 @@
 import { Subscription } from 'rxjs/Subscription';
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 
-import config from '../src/config';
+import config from '../core/config';
 import { Connection } from './interfaces';
-import ZynetMessage from '../src/models/ZynetMessage';
+import ZynetMessage from '../core/models/ZynetMessage';
 
 
 export default class ZynetConnection implements Connection {

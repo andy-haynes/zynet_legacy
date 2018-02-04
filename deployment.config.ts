@@ -4,9 +4,9 @@ const remote = {
   user: 'dinobot',
 };
 const copyPaths = [
-  'src/config.ts',
-  'src/models/',
-  'src/constants/',
+  'core/config.ts',
+  'core/models/',
+  'core/constants/',
   'package.json',
 ];
 

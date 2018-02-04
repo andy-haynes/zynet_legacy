@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 import { w3cwebsocket } from 'websocket';
 
-import config from '../../config';
-import ZynetMessage from '../../models/ZynetMessage';
+import config from '../../../../core/config';
+import ZynetMessage from '../../../../core/models/ZynetMessage';
 
 
 @Injectable()

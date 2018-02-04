@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import BrewConfig from '../../models/BrewConfig';
-import BrewUpdate from '../../models/BrewUpdate';
+import BrewConfig from '../../../../core/models/BrewConfig';
+import BrewUpdate from '../../../../core/models/BrewUpdate';
 import { WebsocketService } from '../websocket/websocket.service';
-import ZynetMessage from '../../models/ZynetMessage';
+import ZynetMessage from '../../../../core/models/ZynetMessage';
 
 @Injectable()
 export class BrewConfigService {
