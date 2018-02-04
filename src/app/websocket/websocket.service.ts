@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 import { w3cwebsocket } from 'websocket';
+
+import config from '../../config';
 import ZynetMessage from '../../models/ZynetMessage';
+
 
 @Injectable()
 export class WebsocketService {
@@ -10,8 +13,8 @@ export class WebsocketService {
 
   constructor() {
     this.socket$ = new WebSocketSubject({
-      url: 'ws://localhost:8081',
-      WebSocketCtor: w3cwebsocket
+      url: config.websocket.url,
+      WebSocketCtor: config.websocket.ctor
     });
     this.socket$.subscribe();
   }
