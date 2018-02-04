@@ -24,25 +24,32 @@ let config = Object.assign(new BrewConfig(1), {
 const pidController = new PIDController(1.5, 1, 0.5, 3);
 pidController.setTargetTemperature(config.steps[currentStepIndex].temperature);
 
-thermometer.sensor$.subscribe((temperature: number) => {
-  if (config) {
-    if (pidThresholdReached) {
-      pidController.updateTemperature(temperature);
-      relay.switch(pidController.state);
-    } else {
-      pidThresholdReached = temperature >= (currentStep.temperature * controllerConfig.PID.strikeThreshold);
-      relay.switch(!pidThresholdReached);
-    }
-  }
+(async () => {
+  await thermometer.init();
+  subscribeThermometer();
+})();
 
-  connection.send(new ZynetMessage(
-    ZynetMessageType.LogUpdate,
-    Object.assign(mockUpdate, {
-      currentTemp: temperature,
-      relayOn: relay.on
-    })
-  ));
-});
+function subscribeThermometer() {
+  thermometer.sensor$.subscribe((temperature: number) => {
+    if (config) {
+      if (pidThresholdReached) {
+        pidController.updateTemperature(temperature);
+        relay.switch(pidController.state);
+      } else {
+        pidThresholdReached = temperature >= (config.steps[currentStepIndex].temperature * controllerConfig.PID.strikeThreshold);
+        relay.switch(!pidThresholdReached);
+      }
+    }
+
+    connection.send(new ZynetMessage(
+      ZynetMessageType.LogUpdate,
+      Object.assign(mockUpdate, {
+        currentTemp: temperature,
+        relayOn: relay.on
+      })
+    ));
+  });
+}
 
 connection.subscribe((message: ZynetMessage) => {
   switch (message.type) {

@@ -28,4 +28,8 @@ export class MockThermometer implements Thermometer {
       }, config.thermometer.sampleIntervalMS);
     });
   }
+
+  async init() {
+    return Promise.resolve();
+  }
 }

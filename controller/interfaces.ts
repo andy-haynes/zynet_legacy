@@ -17,4 +17,5 @@ export interface Relay {
 export interface Thermometer {
   temperature: number;
   sensor$: Observable;
+  init(): Promise;
 }
