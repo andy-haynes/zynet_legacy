@@ -20,7 +20,7 @@ export class MockThermometer implements Thermometer {
   public temperature: number;
 
   constructor(relay: MockRelay) {
-    this.temperature = 68;
+    this.temperature = config.thermometer.defaultTemperature;
     this.sensor$ = Observable.create((observer: Observer) => {
       setInterval(() => {
         this.temperature += relay.on ? 0.025625 : -0.01375;
