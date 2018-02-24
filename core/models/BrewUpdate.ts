@@ -7,7 +7,8 @@ export default class BrewUpdate {
     public currentTemp: number,
     public targetTemp: number,
     public relayOn: boolean,
-    public currentStep: number
+    public currentStep: number,
+    public timestamp: Date = new Date(),
   ) { }
 
   get deltaTemp(): number {

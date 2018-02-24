@@ -16,14 +16,13 @@ const mockUpdate = new BrewUpdate(1, 1, 60, 68, 152, false, 0);
 const connection = new ZynetConnection();
 connection.connect();
 
-let currentStepIndex = 0;
 let pidThresholdReached = false;
 let config = Object.assign(new BrewConfig(1), {
-  steps: [new BrewStep(0, 60, 152, TemperatureUnits.Fahrenheit)]
+  targetTemperature: 131
 });
 
 const pidController = new PIDController(1.5, 1, 0.5, 3);
-pidController.setTargetTemperature(config.steps[currentStepIndex].temperature);
+pidController.setTargetTemperature(config.targetTemperature);
 
 (async () => {
   await thermometer.init();
@@ -37,7 +36,7 @@ function subscribeThermometer() {
         pidController.updateTemperature(temperature);
         relay.toggle(pidController.state);
       } else {
-        pidThresholdReached = temperature >= (config.steps[currentStepIndex].temperature * controllerConfig.PID.strikeThreshold);
+        pidThresholdReached = temperature >= (config.targetTemperature * controllerConfig.PID.strikeThreshold);
         relay.toggle(!pidThresholdReached);
       }
     }
@@ -46,7 +45,8 @@ function subscribeThermometer() {
       ZynetMessageType.LogUpdate,
       Object.assign(mockUpdate, {
         currentTemp: temperature,
-        relayOn: relay.on
+        relayOn: relay.on,
+        timestamp: new Date()
       })
     ));
   });
@@ -56,7 +56,7 @@ connection.subscribe((message: ZynetMessage) => {
   switch (message.type) {
     case ZynetMessageType.UpdateConfig:
       config = <BrewConfig>message.data;
-      pidController.setTargetTemperature(config.steps[currentStepIndex].temperature);
+      pidController.setTargetTemperature(config.targetTemperature);
       break;
     default:
       // no-op
