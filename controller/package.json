@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ds18b20": "^0.1.0",
-    "node-pid-controller": "^1.0.0"
+    "node-pid-controller": "^1.0.0",
+    "rpio": "^0.9.20"
   }
 }

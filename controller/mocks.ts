@@ -12,7 +12,9 @@ export class MockRelay implements Relay {
     this.on = false;
   }
 
-  switch(on: boolean): void { this.on = on; }
+  switchOn(): void { this.on = true; }
+  switchOff(): void { this.on = false; }
+  toggle(on: boolean): void { this.on = on; }
 }
 
 export class MockThermometer implements Thermometer {

@@ -11,7 +11,9 @@ export interface Connection {
 
 export interface Relay {
   on: boolean;
-  switch(on: boolean): void;
+  switchOn(): void;
+  switchOff(): void;
+  toggle(on: boolean): void;
 }
 
 export interface Thermometer {

@@ -2,14 +2,14 @@ import BrewConfig from '../core/models/BrewConfig';
 import BrewStep from '../core/models/BrewStep';
 import BrewUpdate from '../core/models/BrewUpdate';
 import controllerConfig from './config';
-import { MockRelay } from './mocks';
 import { PIDController } from './pid';
 import { PiThermometer } from './thermometer';
+import { MechanicalRelay } from './relay';
 import { TemperatureUnits, ZynetMessageType} from '../core/constants';
 import ZynetConnection from './connection';
 import ZynetMessage from '../core/models/ZynetMessage';
 
-const relay = new MockRelay();
+const relay = new MechanicalRelay(controllerConfig.Relay.pins[0]);
 const thermometer = new PiThermometer();
 const mockUpdate = new BrewUpdate(1, 1, 60, 68, 152, false, 0);
 
@@ -35,10 +35,10 @@ function subscribeThermometer() {
     if (config) {
       if (pidThresholdReached) {
         pidController.updateTemperature(temperature);
-        relay.switch(pidController.state);
+        relay.toggle(pidController.state);
       } else {
         pidThresholdReached = temperature >= (config.steps[currentStepIndex].temperature * controllerConfig.PID.strikeThreshold);
-        relay.switch(!pidThresholdReached);
+        relay.toggle(!pidThresholdReached);
       }
     }
 
