@@ -11,7 +11,6 @@ import ZynetMessage from '../core/models/ZynetMessage';
 
 const relay = new MechanicalRelay(controllerConfig.Relay.pins[0]);
 const thermometer = new PiThermometer();
-const mockUpdate = new BrewUpdate(1, 1, 60, 68, 152, false, 0);
 
 const connection = new ZynetConnection();
 connection.connect();
@@ -41,14 +40,8 @@ function subscribeThermometer() {
       }
     }
 
-    connection.send(new ZynetMessage(
-      ZynetMessageType.LogUpdate,
-      Object.assign(mockUpdate, {
-        currentTemp: temperature,
-        relayOn: relay.on,
-        timestamp: new Date()
-      })
-    ));
+    const update = new BrewUpdate(1, 1, 60, temperature, config.targetTemperature, relay.on, 1, new Date())
+    connection.send(new ZynetMessage(ZynetMessageType.LogUpdate, update));
   });
 }
 
