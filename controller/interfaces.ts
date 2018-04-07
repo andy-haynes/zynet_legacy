@@ -1,8 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import ZynetMessage from '../src/models/ZynetMessage';
-
+import ZynetMessage from '../core/models/ZynetMessage';
 
 export interface Connection {
   connect(): Subscription;
@@ -18,6 +17,6 @@ export interface Relay {
 
 export interface Thermometer {
   temperature: number;
-  sensor$: Observable;
-  init(): Promise;
+  sensor$: Observable<number>;
+  init(): Promise<any>;
 }

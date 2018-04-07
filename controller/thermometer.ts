@@ -1,23 +1,23 @@
 import * as ds18b20 from 'ds18b20';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 
 import config from './config';
 import { Thermometer } from './interfaces';
 
-
 export class PiThermometer implements Thermometer {
-  public sensor$: Observable;
+  public sensor$: Observable<number>;
   public temperature: number;
 
   private sensorId: string;
 
   constructor(private metric = false) {
     this.temperature = config.thermometer.defaultTemperature;
-    this.sensor$ = Observable.create((observer: Observer) => {
+    this.sensor$ = Observable.create((observer: Observer<number>) => {
       setInterval(async () => {
         try {
           this.temperature = await this.readTemperature();
-        } catch (e: Error) {
+        } catch (e) {
           console.error(e);
         }
         observer.next(this.temperature);
@@ -29,7 +29,7 @@ export class PiThermometer implements Thermometer {
     this.sensorId = await this.resolveSensorId();
   }
 
-  private async resolveSensorId(): string {
+  private resolveSensorId(): Promise<string> {
     return new Promise((resolve, reject) => {
       ds18b20.sensors((err: Error, ids: string[]) => {
         if (err) {
@@ -43,7 +43,7 @@ export class PiThermometer implements Thermometer {
     });
   }
 
-  private async readTemperature(): number {
+  private readTemperature(): Promise<number> {
     return new Promise((resolve, reject) => {
       if (this.sensorId) {
         ds18b20.temperature(this.sensorId, (error: Error, temperature: number) => {

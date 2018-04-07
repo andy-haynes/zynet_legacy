@@ -4,10 +4,10 @@ import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 import config from '../core/config';
 import { Connection } from './interfaces';
 import ZynetMessage from '../core/models/ZynetMessage';
-
+import { ZynetClientType, ZynetMessageType } from '../core/constants';
 
 export default class ZynetConnection implements Connection {
-  private socket$: WebSocketSubject;
+  private socket$: WebSocketSubject<any>;
 
   connect(): Subscription {
     this.socket$ = new WebSocketSubject({
@@ -40,7 +40,7 @@ export default class ZynetConnection implements Connection {
     this.socket$.next(JSON.stringify(message));
   }
 
-  subscribe(next: Function): Subscription {
+  subscribe(next: (value: any) => void): Subscription {
     return this.socket$
       .subscribe(next, console.error, () => {});
   }
