@@ -7,8 +7,9 @@
     "build": "webpack",
     "deploy": "ts-node ./deploy.ts",
     "pre-build": "cp package.json dist/",
-    "build:controller": "npm run pre-build; cd controller; tsc; cp package.json ../dist/controller;",
-    "build:server": "npm run pre-build; cd server; tsc; cp package.json ../dist/server;",
+    "build:controller": "npm run pre-build; cd controller; tsc; cp package.json ../dist/controller",
+    "build:server": "npm run pre-build; cd server; tsc; cp package.json ../dist/server",
+    "build:all": "npm run build:controller; npm run build:server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
