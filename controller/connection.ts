@@ -15,6 +15,8 @@ export default class ZynetConnection implements Connection {
       WebSocketCtor: config.websocket.ctor
     });
 
+    this.send(new ZynetMessage(ZynetMessageType.RegisterClient, ZynetClientType.Controller));
+
     return this.socket$
       .subscribe(
         (msg: ZynetMessage) => {

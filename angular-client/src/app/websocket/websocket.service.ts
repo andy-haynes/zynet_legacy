@@ -4,12 +4,13 @@ import { w3cwebsocket } from 'websocket';
 
 import config from '../../../../core/config';
 import ZynetMessage from '../../../../core/models/ZynetMessage';
+import { ZynetClientType, ZynetMessageType } from '../../../../core/constants';
 
 
 @Injectable()
 export class WebsocketService {
 
-  socket$: WebSocketSubject<ZynetMessage>;
+  socket$: WebSocketSubject<any>;
 
   constructor() {
     this.socket$ = new WebSocketSubject({
@@ -17,5 +18,7 @@ export class WebsocketService {
       WebSocketCtor: config.websocket.ctor
     });
     this.socket$.subscribe();
+    this.socket$.next(JSON.stringify(new ZynetMessage(ZynetMessageType.RegisterClient, ZynetClientType.Web)));
   }
+
 }

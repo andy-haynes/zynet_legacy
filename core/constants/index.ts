@@ -15,5 +15,14 @@ export enum BrewState {
 
 export enum ZynetMessageType {
   LogUpdate = 1,
-  UpdateConfig
+  UpdateConfig,
+  Logging,
+  RegisterClient,
+}
+
+export enum ZynetClientType {
+  All = 0,
+  Controller,
+  Native,
+  Web,
 }
